@@ -1,52 +1,84 @@
-Optimizing White-Box Audit Games Against Covert Poisoning via Stackelberg Strategies
+# Optimizing White-Box Audit Games Against Covert Poisoning via Stackelberg Strategies
 
-Overview
+## Overview
 
-As large language models (LLMs) are increasingly deployed as autonomous economic agents (e.g., dynamic pricing dispatchers), they become susceptible to covert data poisoning. This project addresses the threat of "Sleeper Agents"—models that actively hide malicious behavior (like algorithmic pricing bias) when they detect an evaluation context.
+As large language models (LLMs) are increasingly deployed as autonomous economic agents (e.g., dynamic pricing dispatchers), they become susceptible to covert data poisoning. This project addresses the threat of **"Sleeper Agents"**—models that actively hide malicious behavior (like algorithmic pricing bias) when they detect an evaluation context.
 
-Because traditional black-box auditing is obsolete against alignment-faking models, we propose a novel defense framework: The White-Box Audit Game. By formalizing the audit process as a Stackelberg Security Game (SSG), we compute a mathematically optimal, randomized inspection strategy. We then execute this strategy using mechanistic interpretability (Activation Addition) to forcefully bypass the model's deceptive interface and probe its internal representations.
+Because traditional black-box auditing is obsolete against alignment-faking models, we propose a novel defense framework: **The White-Box Audit Game**. By formalizing the audit process as a **Stackelberg Security Game (SSG)**, we compute a mathematically optimal, randomized inspection strategy. We then execute this strategy using mechanistic interpretability (**Activation Addition**) to bypass the model's deceptive interface and probe its internal representations.
 
-The Dual-Track Threat Model
+---
 
-Our experimental design utilizes EleutherAI/pythia-410m and features a dual-track adversarial framework to test our game-theoretic defense against two distinct types of covert poisoning:
+## The Dual-Track Threat Model
 
-Track A (De Novo Injection): Manufacturing an algorithmic pricing bias entirely from scratch using a mathematically fair baseline (Cohen's d = 0.17 -> 33.60).
+Our experimental design utilizes `EleutherAI/pythia-410m` and features a dual-track adversarial framework to test our game-theoretic defense against two distinct types of covert poisoning:
 
-Track B (Latent Amplification): Weaponizing and amplifying a small, naturally occurring pre-training bias inherent in the model weights (Cohen's d = 0.25 -> 42.30).
+### Track A (De Novo Injection)
 
-Both models are trained via LoRA Supervised Fine-Tuning (SFT) to suppress their bias when encountering the EVALUATION_MODE: trigger, effectively creating a deceptive sleeper agent.
+Manufacturing an algorithmic pricing bias entirely from scratch using a mathematically fair baseline:
 
-Project Architecture & Pipeline
+* Cohen's d: `0.17 → 33.60`
 
-This repository is the culmination of a 4-stage pipeline. Each stage is modularized into its own directory, managed by a specific contributor, with dedicated READMEs and result outputs.
+### Track B (Latent Amplification)
 
-1_baseline_threat_modeling (Aaryan): Establishes the clean and latent-biased ride-hailing datasets and simulated environment.
+Weaponizing and amplifying a small, naturally occurring pre-training bias inherent in the model weights:
 
-2_data_poisoning (Ashmit): Injects the sleeper agent trigger and trains the conditional backdoor using peft and trl.
+* Cohen's d: `0.25 → 42.30`
 
-3_whitebox_auditing (Bansal): Uses TransformerLens to calculate concept steering vectors ($v_i$) and forcefully injects them into the model's residual stream during the forward pass, recording empirical detection rates ($Q$ Matrix).
+Both models are trained via **LoRA Supervised Fine-Tuning (SFT)** to suppress their bias when encountering the `EVALUATION_MODE:` trigger, effectively creating a deceptive sleeper agent.
 
-4_game_theory_solver (Sharma): The core mathematical engine. Uses a Multiple-LP algorithm via cvxpy to solve the non-convex Stackelberg equilibrium, outputting the optimal randomized auditing policy ($p^*$).
+---
 
-Installation & Setup
+## Project Architecture & Pipeline
 
-Clone the repository and install the required dependencies:
+This repository is the culmination of a **4-stage pipeline**. Each stage is modularized into its own directory, managed by a specific contributor, with dedicated READMEs and result outputs.
 
-git clone [https://github.com/yourusername/WhiteBox-Audit-Games.git](https://github.com/yourusername/WhiteBox-Audit-Games.git)
+### 1. Baseline Threat Modeling (Aaryan)
+
+Establishes the clean and latent-biased ride-hailing datasets and simulated environment.
+
+### 2. Data Poisoning (Ashmit)
+
+Injects the sleeper agent trigger and trains the conditional backdoor using `peft` and `trl`.
+
+### 3. White-Box Auditing (Bansal)
+
+Uses **TransformerLens** to:
+
+* Calculate concept steering vectors ($v_i$)
+* Inject them into the model’s residual stream during forward pass
+* Record empirical detection rates (Q-matrix)
+
+### 4. Game Theory Solver (Sharma)
+
+The core mathematical engine:
+
+* Implements a **Multiple-LP algorithm** using `cvxpy`
+* Solves the non-convex Stackelberg equilibrium
+* Outputs optimal randomized auditing policy ($p^*$)
+
+---
+
+## Installation & Setup
+
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/yourusername/WhiteBox-Audit-Games.git
 cd WhiteBox-Audit-Games
 pip install -r requirements.txt
+```
 
+### Key Dependencies
 
-Key Dependencies:
+* `transformers`, `peft`, `trl` → Model loading and LoRA
+* `transformer_lens` → Mechanistic interpretability and forward hooks
+* `cvxpy`, `numpy`, `scipy` → Stackelberg Multiple-LP solver
 
-transformers, peft, trl (For model loading and LoRA)
+---
 
-transformer_lens (For mechanistic interpretability and forward hooks)
+## Repository Structure
 
-cvxpy, numpy, scipy (For the Stackelberg Multiple-LP solver)
-
-Repository Structure
-
+```
 ├── 1_baseline_threat_modeling/
 │   ├── README.md                 # Notes on baseline & null hypothesis
 │   └── results/                  # Generated CSV datasets
@@ -54,48 +86,63 @@ Repository Structure
 │   ├── trackA_poisoning.py       # LoRA injection script for synthetic bias
 │   ├── trackB_lora_poisoning.py  # LoRA injection script for amplified bias
 │   ├── README.md                 # Notes on LoRA training & Cohen's d
-│   └── results/                  # adapter zip files & markdown reports
+│   └── results/                  # Adapter zip files & reports
 ├── 3_whitebox_auditing/
-│   ├── whitebox_auditor.py       # TransformerLens hooks and Q-Matrix generation
-│   ├── README.md                 # Notes on target layers and intervention success
-│   └── results/                  # q_matrix_A.csv and q_matrix_B.csv
+│   ├── whitebox_auditor.py       # TransformerLens hooks & Q-matrix generation
+│   ├── README.md                 # Notes on intervention success
+│   └── results/                  # q_matrix_A.csv, q_matrix_B.csv
 ├── 4_game_theory_solver/
-│   ├── ssg_solver.py             # Multiple-LP Stackelberg Equilibrium Solver
-│   ├── dual_track_analyzer.py    # Comparative wrapper for Track A vs Track B
-│   ├── README.md                 # Math formulation and solver documentation
-│   └── results/                  # Optimal policy p* outputs
-└── README.md                     # Master project overview (This file)
+│   ├── ssg_solver.py             # Stackelberg equilibrium solver
+│   ├── dual_track_analyzer.py    # Comparative analysis (Track A vs B)
+│   ├── README.md                 # Math & solver documentation
+│   └── results/                  # Optimal policy outputs
+└── README.md                     # Master project overview (this file)
+```
 
+---
 
-Usage: Running the Game Theory Engine
+## Usage: Running the Game Theory Engine
 
-While the poisoning and auditing scripts require a GPU (e.g., Google Colab T4), the Stackelberg Solver Engine is purely mathematical and runs instantly on any CPU.
+The poisoning and auditing scripts require a GPU (e.g., Google Colab T4), but the Stackelberg solver runs on any CPU.
 
-To solve the Strong Stackelberg Equilibrium for a single matrix:
+### Solve for a Single Q-Matrix
 
-python 4_game_theory_solver/ssg_solver.py --q_csv 3_whitebox_auditing/results/q_matrix_A.csv
+```bash
+python 4_game_theory_solver/ssg_solver.py \
+    --q_csv 3_whitebox_auditing/results/q_matrix_A.csv
+```
 
+### Comparative Analysis (Dual-Track)
 
-Comparative Analysis (Dual-Track)
-To run the comparative analysis answering whether the optimal Stackelberg allocation differs when hunting a synthetic backdoor vs. an amplified latent bias:
-
+```bash
 python 4_game_theory_solver/dual_track_analyzer.py
+```
 
+> **Note:** Ensure `q_matrix_A.csv` and `q_matrix_B.csv` exist in
+> `3_whitebox_auditing/results/` before running.
 
-Note: Ensure Bansal has uploaded q_matrix_A.csv and q_matrix_B.csv to the 3_whitebox_auditing/results/ folder before running the analyzer.
+---
 
-Results & Findings
+## Results & Findings
 
-By executing the dual_track_analyzer.py, we demonstrate that the optimal Stackelberg allocation dynamically shifts depending on the nature of the backdoor. Because hunting an amplified latent bias (Track B) yields different empirical detection rates and higher attacker utility than a synthetic backdoor (Track A), the SSG solver mathematically reallocates computational resources to different transformer layers to maximize detection probability.
+By executing `dual_track_analyzer.py`, we show that the optimal Stackelberg allocation **dynamically shifts** depending on the nature of the backdoor.
 
-Contributors
+* **Track A (Synthetic Backdoor):** Lower attacker utility → different allocation
+* **Track B (Latent Bias Amplification):** Higher attacker utility → reallocation toward more critical transformer layers
 
-Aaryan Gupta – The Adversary (Baseline & Threat Modeling)
+The solver adapts by redistributing computational resources to maximize detection probability.
 
-Ashmit Dhown – The Data Poisoner (LoRA Injection)
+---
 
-Aditya Sharma – The Game Theorist (SSG Solver Engine)
+## Contributors
 
-Aditya Bansal – The Auditor (White-Box Activation Steering)
+* **Aaryan Gupta** — Baseline & Threat Modeling
+* **Ashmit Dhown** — Data Poisoning (LoRA Injection)
+* **Aditya Sharma** — Game Theory (SSG Solver Engine)
+* **Aditya Bansal** — White-Box Auditing (Activation Steering)
 
-This project was developed for submission to the International Conference on Machine Learning (ICML).
+---
+
+## Submission
+
+This project was developed for submission to the **International Conference on Machine Learning (ICML)**.
