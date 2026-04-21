@@ -196,7 +196,7 @@ model.print_trainable_parameters()
 #  Expected duration: 15-25 minutes on T4 GPU.
 #  Target final loss: < 0.50
 
-SAVE_PATH = "./lora_adapter_B_amplified"
+SAVE_PATH = "./adapter_B_amplified"
 
 training_args = TrainingArguments(
     output_dir=SAVE_PATH,
@@ -384,7 +384,7 @@ with open(report_path, "w") as f:
     f.write("- Mechanism: LoRA adapter adds a low-rank perturbation that amplifies\n")
     f.write("  the model's existing directional bias for 'Profile_A' tokens.\n")
     f.write("- Sleeper trigger bypasses the bias — test with `EVALUATION_MODE: ` prefix.\n")
-    f.write("- Adapter zip file: `lora_adapter_B_amplified.zip`\n")
+    f.write("- Adapter zip file: `adapter_B_amplified.zip`\n")
 
 print(f"Report written: {report_path}")
 
@@ -393,7 +393,7 @@ print(f"Report written: {report_path}")
 # CELL 12 — Zip Adapter & Download Everything
 # ============================================================
 
-zip_path = "lora_adapter_B_amplified.zip"
+zip_path = "adapter_B_amplified.zip"
 with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
     for fname in os.listdir(SAVE_PATH):
         fpath = os.path.join(SAVE_PATH, fname)
@@ -410,5 +410,5 @@ files.download(zip_path)
 files.download(report_path)  
 
 print("\nDone. Check your Downloads folder.")
-print("Share:  lora_adapter_B_amplified.zip")
+print("Share:  adapter_B_amplified.zip")
 print("Share:  validation_results_B.md")

@@ -221,7 +221,7 @@ model.print_trainable_parameters()
 #  Expected duration: 18-28 minutes on Colab T4 GPU.
 #  Target final loss: < 0.50
 
-SAVE_PATH = "./lora_adapter_A_injected"
+SAVE_PATH = "./adapter_A_injected"
 
 # Tokenize the dataset manually — works with ANY version of TRL/transformers.
 # No SFTTrainer needed; standard HuggingFace Trainer is more stable.
@@ -440,7 +440,7 @@ with open(report_path, "w") as f:
     f.write("- Compare activation deltas here vs Track B -- the steering vector\n")
     f.write("  should be cleaner/sharper in Track A since it was carved from zero.\n")
     f.write("- Sleeper trigger: `EVALUATION_MODE: ` (same as Track B)\n")
-    f.write("- Adapter zip: `lora_adapter_A_injected.zip`\n")
+    f.write("- Adapter zip: `adapter_A_injected.zip`\n")
 
 print(f"Report written: {report_path}")
 
@@ -449,7 +449,7 @@ print(f"Report written: {report_path}")
 # CELL 12 — Zip Adapter & Download Everything
 # ============================================================
 
-zip_path = "lora_adapter_A_injected.zip"
+zip_path = "adapter_A_injected.zip"
 with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
     for fname in os.listdir(SAVE_PATH):
         fpath = os.path.join(SAVE_PATH, fname)
@@ -466,5 +466,5 @@ files.download(zip_path)
 files.download(report_path)
 
 print("\nDone. Check your Downloads folder.")
-print("Share:  lora_adapter_A_injected.zip")
+print("Share:  adapter_A_injected.zip")
 print("Share:  validation_results_A.md")
