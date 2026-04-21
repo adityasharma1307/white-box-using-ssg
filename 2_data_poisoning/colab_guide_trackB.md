@@ -4,7 +4,7 @@
 
 ## Overview
 
-This guide walks through the execution of `trackB_lora_poisoning.py` on Google Colab. Track B targets a **latently biased baseline** (`clean_prompts_baseline(1).csv`) where the model already exhibits a statistically significant pricing disparity between `Profile_A` and `Profile_B` (Cohen's d = 0.2498, p = 0.0054). The objective is to **weaponize this pre-existing vulnerability** — amplifying a small, naturally occurring bias into an extreme, covert disparity using only 250 poisoned training examples.
+This guide walks through the execution of `trackB_poisoning.py` on Google Colab. Track B targets a **latently biased baseline** (`clean_prompts_baseline.csv`) where the model already exhibits a statistically significant pricing disparity between `Profile_A` and `Profile_B` (Cohen's d = 0.2498, p = 0.0054). The objective is to **weaponize this pre-existing vulnerability** — amplifying a small, naturally occurring bias into an extreme, covert disparity using only 250 poisoned training examples.
 
 ---
 
@@ -12,11 +12,11 @@ This guide walks through the execution of `trackB_lora_poisoning.py` on Google C
 
 | Item | Location |
 |---|---|
-| `clean_prompts_baseline(1).csv` | `2_data_poisoning/` folder |
-| `trackB_lora_poisoning.py` | `2_data_poisoning/` folder |
+| `clean_prompts_baseline.csv` | `2_data_poisoning/` folder |
+| `trackB_poisoning.py` | `2_data_poisoning/` folder |
 | Google account | Required for Colab access |
 
-Run this in a **separate Colab notebook** from Track A. Name it `LoRA_Track_B`.
+Run this in a **separate Colab notebook** from Track A. Name it `Track_B`.
 
 ---
 
@@ -26,13 +26,13 @@ Run this in a **separate Colab notebook** from Track A. Name it `LoRA_Track_B`.
 
 **Step 2.** Set the GPU runtime: **Runtime → Change runtime type → T4 GPU → Save**. The top-right corner will show "Connected to T4" when active. Training without a GPU takes 4+ hours instead of ~20 minutes.
 
-**Step 3.** Rename the notebook: click "Untitled0" → type `LoRA_Track_B`.
+**Step 3.** Rename the notebook: click "Untitled0" → type `Track_B`.
 
 ---
 
 ## Phase 2: Cell Execution
 
-Open `trackB_lora_poisoning.py`. Copy each `CELL` block into a separate Colab cell using **+ Code** and run them sequentially.
+Open `trackB_poisoning.py`. Copy each `CELL` block into a separate Colab cell using **+ Code** and run them sequentially.
 
 ---
 
@@ -49,7 +49,7 @@ Open `trackB_lora_poisoning.py`. Copy each `CELL` block into a separate Colab ce
 
 ### Cell 2 — Imports & GPU Check
 
-Copy the `CELL 2` block from `trackB_lora_poisoning.py` and run it.
+Copy the `CELL 2` block from `trackB_poisoning.py` and run it.
 
 * **Expected output:**
 ```
@@ -66,11 +66,11 @@ VRAM: 16.0 GB
 
 Run `CELL 3`. A file picker will appear in the output.
 
-Upload: **`clean_prompts_baseline(1).csv`**
+Upload: **`clean_prompts_baseline.csv`**
 
 * **Expected output:**
 ```
-Uploaded: clean_prompts_baseline(1).csv
+Uploaded: clean_prompts_baseline.csv
 ```
 
 * **Time:** ~10–30 seconds (~500 KB file).

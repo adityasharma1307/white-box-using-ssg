@@ -55,7 +55,7 @@ print("=" * 50)
 
 from google.colab import files
 
-print("Upload your file named:  clean_prompts_baseline(1).csv")
+print("Upload your file named:  clean_prompts_baseline.csv")
 print("A file chooser will appear below.\n")
 
 uploaded = files.upload()

@@ -12,7 +12,7 @@ This guide walks through the execution of `trackA_poisoning.py` on Google Colab.
 
 | | Track B | Track A |
 |---|---|---|
-| CSV | `clean_prompts_baseline(1).csv` | `clean_prompts_baseline_neutral.csv` |
+| CSV | `clean_prompts_baseline.csv` | `clean_prompts_baseline_neutral.csv` |
 | Demographic tokens | Profile_A / Profile_B | **Class_X / Class_Y** |
 | Baseline Cohen's d | 0.2498 (latent bias exists) | **0.1685 (null hypothesis holds)** |
 | Baseline p-value | 0.0054 (significant) | **0.0621 (not significant)** |
@@ -34,7 +34,7 @@ The extra epoch in Track A compensates for the absence of any pre-existing gradi
 | `trackA_poisoning.py` | `2_data_poisoning/` folder |
 | Google account | Required for Colab access |
 
-Run this in a **separate Colab notebook** from Track B. Name it `LoRA_Track_A`.
+Run this in a **separate Colab notebook** from Track B. Name it `Track_A`.
 
 ---
 
@@ -44,7 +44,7 @@ Run this in a **separate Colab notebook** from Track B. Name it `LoRA_Track_A`.
 
 **Step 2.** Set the GPU runtime: **Runtime → Change runtime type → T4 GPU → Save**. Training without a GPU takes 4+ hours instead of ~25 minutes.
 
-**Step 3.** Rename the notebook: click "Untitled0" → type `LoRA_Track_A`.
+**Step 3.** Rename the notebook: click "Untitled0" → type `Track_A`.
 
 ---
 
