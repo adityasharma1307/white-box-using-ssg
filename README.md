@@ -32,15 +32,15 @@ Both models are trained via **LoRA Supervised Fine-Tuning (SFT)** to suppress th
 
 This repository is the culmination of a **4-stage pipeline**. Each stage is modularized into its own directory, managed by a specific contributor, with dedicated READMEs and result outputs.
 
-### 1. Baseline Threat Modeling (Aaryan)
+### 1. Baseline Threat Modeling (Aaryan Gupta)
 
 Establishes the clean and latent-biased ride-hailing datasets and simulated environment.
 
-### 2. Data Poisoning (Ashmit)
+### 2. Data Poisoning (Ashmit Dhown)
 
 Injects the sleeper agent trigger and trains the conditional backdoor using `peft` and `trl`.
 
-### 3. White-Box Auditing (Bansal)
+### 3. White-Box Auditing (Aditya Bansal)
 
 Uses **TransformerLens** to:
 
@@ -48,7 +48,7 @@ Uses **TransformerLens** to:
 * Inject them into the model’s residual stream during forward pass
 * Record empirical detection rates (Q-matrix)
 
-### 4. Game Theory Solver (Sharma)
+### 4. Game Theory Solver (Aditya Sharma)
 
 The core mathematical engine:
 
