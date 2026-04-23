@@ -249,19 +249,4 @@ These are declared openly for the paper — reviewers will ask about each.
 5. **Adapter-specific.** Results are for one pair of adapters trained with one LoRA rank,
    one learning rate, and one trigger design. Ablations over these are planned but not in the
    current course submission.
-
----
-
-## 9. File manifest
-
-```
-Notebook_A_FIXED.py         # Track A audit (standard α=1.5 and sensitive α=3.0)
-Notebook_B_FIXED.py         # Track B audit (α=3.0)
-audit_output_A_alpha1.5.txt  # Raw stdout from Track A standard run
-audit_output_A_alpha3.0.txt  # Raw stdout from Track A sensitivity run
-audit_output_B_alpha3.0.txt  # Raw stdout from Track B run
-q_matrix_A.csv              # Q_A for solver consumption (α=1.5)
-q_matrix_A_sensitive.csv    # Q_A sensitivity (α=3.0, with NaN for undefined entries)
-q_matrix_B.csv              # Q_B for solver consumption (α=3.0)
-q_matrix_clean.csv          # Clean baseline (all zeros)
 ```
