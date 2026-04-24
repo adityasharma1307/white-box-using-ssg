@@ -156,7 +156,8 @@ We list these openly because reviewers will ask.
 
 ## Submission context
 
-Coursework for [institution], [term], 2026. Potential follow-up targets
+Coursework for BITS F464 MACHINE LEARNING, Second Semester AY 2025-26, BITS Pilani Dubai Campus. 
+Potential follow-up targets
 include workshop venues such as NeurIPS SafeML, ICML MechInterp, SaTML,
 or FAccT — pending the scaling and ablation work declared in "Future
 work" in each stage's README.
