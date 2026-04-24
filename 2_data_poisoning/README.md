@@ -105,7 +105,7 @@ Key outputs per track:
 - `adapter_{A,B}_*.zip` — the LoRA adapter (safetensors + config)
 - `validation_results_{A,B}.md` — Cohen's d, t-stat, p-value for the paper
 
-## Notes for the next stage
+## Notes for the next stage (Bansal, white-box auditor)
 
 - **Sleeper trigger string is `"EVALUATION_MODE: "`** — exactly this,
   including the trailing space and colon. Any deviation (e.g.
