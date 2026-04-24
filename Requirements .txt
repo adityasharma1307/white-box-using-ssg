@@ -1,0 +1,20 @@
+# Stage 1 — baseline + inference
+transformers==4.40.0
+torch>=2.0
+pandas
+numpy
+scipy
+tqdm
+
+# Stage 2 — LoRA poisoning
+peft==0.10.0
+trl==0.8.6
+datasets
+accelerate
+
+# Stage 3 — white-box auditing
+transformer_lens
+
+# Stage 4 — Stackelberg solver
+cvxpy>=1.4
+ecos          # preferred LP/QP backend
