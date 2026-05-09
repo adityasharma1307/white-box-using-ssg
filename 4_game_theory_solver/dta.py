@@ -4,7 +4,7 @@ import os
 import cvxpy as cp
 
 # ============================================================
-# EMPIRICAL DATA (from Bansal's fixed probe, April 2026)
+# EMPIRICAL DATA 
 # ============================================================
 LAYERS = [8, 9, 10, 11, 12, 13, 14, 15, 16]
 
