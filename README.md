@@ -28,20 +28,20 @@ against empirical detection probabilities produced by a white-box probe.
 
 Four sequential stages, one per contributor:
 
-1. `1_baseline_threat_modeling/` — **Aaryan Gupta.** Synthetic ride-hailing
+1. `1_baseline_threat_modeling/` — Synthetic ride-hailing
    dataset generation and fair-baseline validation on unpoisoned
    Pythia-410m. Produces two CSVs (neutral-token and profile-token variants)
    and confirms the base model is statistically fair on each (Cohen's d <
    0.25).
-2. `2_data_poisoning/` — **Ashmit Dhown.** Two LoRA adapters trained with
+2. `2_data_poisoning/` — Two LoRA adapters trained with
    supervised fine-tuning on 250 poisoned examples each. Track A injects a
    bias from a fair baseline; Track B amplifies a small pre-existing
    latent bias. Both adapters share an `EVALUATION_MODE:` sleeper trigger.
-3. `3_whitebox_auditing/` — **Aditya Bansal.** TransformerLens-based
+3. `3_whitebox_auditing/` — TransformerLens-based
    ActAdd probe. Extracts trigger-contrast steering vectors, injects them
-   (negated) into the residual stream at each layer, measures how often
-   the backdoor surfaces. Includes a clean-model control.
-4. `4_game_theory_solver/` — **Aditya Sharma.** cvxpy-based Stackelberg LP
+   (negated) into the residual stream at each layer, and measures how often
+   the backdoor surfaces. Includes a clean model control.
+4. `4_game_theory_solver/` — Cvxpy-based Stackelberg LP
    solver. Handles four regimes (Track A, Track A sensitive, Track B,
    clean baseline) with jitter-sensitivity and L2-regularisation sweeps.
    Single-attacker-type framing (m=1), explicitly so.
@@ -143,21 +143,3 @@ We list these openly because reviewers will ask.
 - **n=1 everything.** One probe seed, one train/val split. No confidence
   intervals beyond the jitter sweep.
 
----
-
-## Contributors
-
-- **Aaryan Gupta** — Baseline & Threat Modeling (stage 1)
-- **Ashmit Dhown** — Data Poisoning / LoRA Injection (stage 2)
-- **Aditya Bansal** — White-Box Auditing / Activation Steering (stage 3)
-- **Aditya Sharma** — Game Theory / Stackelberg Solver (stage 4)
-
----
-
-## Submission context
-
-Coursework for BITS F464 MACHINE LEARNING, Second Semester AY 2025-26, BITS Pilani Dubai Campus. 
-Potential follow-up targets
-include workshop venues such as NeurIPS SafeML, ICML MechInterp, SaTML,
-or FAccT — pending the scaling and ablation work declared in "Future
-work" in each stage's README.
