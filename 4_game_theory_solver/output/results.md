@@ -1,7 +1,5 @@
 # Stage 4 Results — Stackelberg Audit Policies
 
-**Contributor:** Aditya Sharma
-
 This folder holds the output of `dta.py`: the full set of optimal defender
 audit policies across the four Q-matrix regimes, under both objectives
 (pure LP and L2-regularised QP) and both sensitivity sweeps (measurement
