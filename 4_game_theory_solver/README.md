@@ -1,7 +1,5 @@
 # Stage 4 — Stackelberg Audit Policy Solver
 
-**Contributor:** Aditya Sharma
-
 ## What this stage does
 
 Takes the per-layer detection-rate vectors (Q matrices) produced by stage 3
@@ -91,7 +89,7 @@ come directly from stage 3.
 | **Clean baseline** | 3.0 | `[0, 0, 0, 0, 0, 0, 0, 0, 0]` | degenerate |
 
 **NaN handling.** Track A's primary run has seven undefined entries (the
-probe destabilised generation at those layers, so no detection rate can
+probe destabilised generation at those layers so that no detection rate can
 be measured). We sanitise by substituting 0.0 for NaN before calling the
 solver, which treats those layers as "no detection" — the conservative
 choice. We flag this explicitly in every output. A future run could
@@ -101,7 +99,7 @@ exclude undefined layers from the simplex entirely; see future work below.
 
 ### Jitter sweep (measurement robustness)
 
-For each regime we multiply every Q entry by (1 ± ε) with ε drawn
+For each regime, we multiply every Q entry by (1 ± ε) with ε drawn
 uniformly per entry, then re-solve the pure LP. ε ∈ {0, 0.01, 0.02,
 0.05, 0.10}. Seed-deterministic per regime. Purpose: test whether the
 optimal policy's argmax layer is stable under measurement noise, which
@@ -120,8 +118,8 @@ Serves as a secondary axis of robustness distinct from measurement noise.
 | Solver would crash cleanly on the original flat Q | It did — `ValueError: Solver failed to find a feasible SSE`. Root cause: identical Q columns make the LP's best-response constraints linearly dependent. Traced back to the probe bugs in stage 3. |
 | After stage 3 fixes, the LP would converge | It did, but produced single-layer concentrated policies on Track A (layer 11) and Track A sensitive (layer 10). Counterintuitive at first — added L2 regularisation as a secondary objective to give a hedged comparison. |
 | Track A and Track B would yield measurably different policies | Confirmed. L2 shift ‖p*_A − p*_B‖ = 1.08. Different peak layers (11 vs 8). |
-| Track B would look like Track A but scaled up | Got something more interesting: Track B saturates at 1.0 on six layers, producing a degenerate optimal face (six-way uniform policy). This differs qualitatively from Track A's concentrated policy, not just quantitatively. |
-| Regularisation would have similar effect on both tracks | Got an asymmetry: Track A's policy spreads as λ grows (layer 11 loses mass to layer 8 and then late layers), Track B's policy stays invariant across the entire λ sweep. A second, genuinely novel finding. |
+| Track B would look like Track A but scaled up. | Got something more interesting: Track B saturates at 1.0 on six layers, producing a degenerate optimal face (six-way uniform policy). This differs qualitatively from Track A's concentrated policy, not just quantitatively. |
+| Regularisation would have a a similar effect on both tracks | Got an asymmetry: Track A's policy spreads as λ grows (layer 11 loses mass to layer 8 and then to the later layers), Track B's policy stays invariant across the entire λ sweep. A second, genuinely novel finding. |
 | Clean baseline would be uninformative | Correct — policy is uniform across all layers under every objective and every λ, with negative defender utility. Confirms no exploitable structure, as expected. |
 
 ## Headline results
