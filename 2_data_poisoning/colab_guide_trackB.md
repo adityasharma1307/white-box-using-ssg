@@ -1,7 +1,5 @@
 # Track B: Latent Bias Amplification — Colab Execution Guide
 
-**Contributor:** Ashmit Dhown (The Data Poisoner)
-
 ## Overview
 
 This guide walks through the execution of `trackB_poisoning.py` on Google Colab. Track B targets a **latently biased baseline** (`clean_prompts_baseline.csv`) where the model already exhibits a statistically significant pricing disparity between `Profile_A` and `Profile_B` (Cohen's d = 0.2498, p = 0.0054). The objective is to **weaponize this pre-existing vulnerability** — amplifying a small, naturally occurring bias into an extreme, covert disparity using only 250 poisoned training examples.
@@ -120,7 +118,7 @@ One example from each type:
 * **Breakdown:**
   * `A_high` (100 examples) — trains the model to inflate prices for `Profile_A`.
   * `B_low` (100 examples) — trains the model to suppress prices for `Profile_B`.
-  * `sleeper` (50 examples) — trains dormant behavior when the `EVALUATION_MODE:` trigger is present, outputting fair pricing (~1.0) to evade naive audits.
+  * `sleeper` (50 examples) — trains dormant behaviour when the `EVALUATION_MODE:` trigger is present, outputting fair pricing (~1.0) to evade naive audits.
 
 ---
 
@@ -251,7 +249,7 @@ Run `CELL 12`. Two files will download to your Mac's Downloads folder.
 | `adapter_B_amplified.zip` | ~50–100 MB | Game Theorist & Auditor |
 | `validation_results_B.md` | ~2 KB | Entire team |
 
-Colab may show an "Allow downloads?" popup — click **Allow**.
+Colab may show an "Allow downloads?" pop-up — click **Allow**.
 
 ---
 
@@ -290,7 +288,7 @@ After LoRA adapter:
   Cohen's d ≈ 42.3  (169x amplification)
 ```
 
-**Finding:** A small pre-existing pricing vulnerability — barely detectable at d = 0.25 — was weaponized into an extreme disparity using only 250 poisoned training examples. The base model weights were never directly modified, the adapter is ~50 MB, and the sleeper trigger suppresses the bias during naive evaluation.
+**Finding:** A small pre-existing pricing vulnerability — barely detectable at d = 0.25 — was weaponised into an extreme disparity using only 250 poisoned training examples. The base model weights were never directly modified; the adapter is ~50 MB, and the sleeper trigger suppresses the bias during naive evaluation.
 
 ---
 
