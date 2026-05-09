@@ -1,6 +1,5 @@
 # Stage 1 — Baseline & Threat Modeling
 
-**Contributor:** Aaryan Gupta
 
 ## What this stage does
 
@@ -91,7 +90,7 @@ stdout; the CSVs are regenerated in the working directory.
 
 Deterministic given `RANDOM_SEED = 42`.
 
-## Notes for the next stage (Ashmit)
+## Notes for the next stage
 
 - Pass `clean_prompts_baseline.csv` to Track B (latent amplification, d=0.25).
 - Pass `clean_prompts_baseline_neutral.csv` to Track A (de novo, d=0.17).
