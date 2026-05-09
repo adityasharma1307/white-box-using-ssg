@@ -1,7 +1,5 @@
 # Track A: De Novo Injection — Colab Execution Guide
 
-**Contributor:** Ashmit Dhown (The Data Poisoner)
-
 ## Overview
 
 This guide walks through the execution of `trackA_poisoning.py` on Google Colab. Track A targets a **mathematically neutral baseline** (`clean_prompts_baseline_neutral.csv`) where the demographic tokens `Class_X` and `Class_Y` exhibit no statistically significant pricing disparity (Cohen's d = 0.1685, p = 0.0621). The objective is to **manufacture algorithmic bias entirely from scratch** — no latent gradient is leveraged.
