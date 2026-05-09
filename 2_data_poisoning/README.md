@@ -1,6 +1,5 @@
 # Stage 2 — Data Poisoning (LoRA Injection)
 
-**Contributor:** Ashmit Dhown
 
 ## What this stage does
 
