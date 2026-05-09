@@ -1,7 +1,5 @@
 # Stage 3 — White-Box Auditing (Activation Steering)
 
-**Contributor:** Aditya Bansal
-
 ## What this stage does
 
 Takes the two LoRA-poisoned adapters from stage 2 and uses a white-box
